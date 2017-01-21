@@ -10,6 +10,8 @@ public class Shoot : MonoBehaviour {
     public int energy = 0;
     public float cooldown;
     private float counter;
+    private Vector3 dir;
+    private float dist;
     public KeyCode keycode;
     public KeyCode specialKeyCode;
 
@@ -25,11 +27,12 @@ public class Shoot : MonoBehaviour {
 
         if (Input.GetKeyDown(keycode) && counter <= 0.0f)
         {
-            Debug.Log("Pressed");
             Shooting();
             counter = cooldown;
             
         }
+
+
 
         if (Input.GetKeyDown(keycode) && counter <= 0.0f && energy == 100)
         {
@@ -40,14 +43,20 @@ public class Shoot : MonoBehaviour {
             counter = cooldown;
             energy = 0;
         }
-	}
+
+        Vector3 dir = ball.transform.position - player.transform.position;
+        float dist = Vector3.Distance(ball.transform.position, player.transform.position);
+        dir.Normalize();
+        Debug.DrawLine(player.transform.position, player.transform.position+ dir*force/dist);
+    }
 
     public void Shooting()
     {
+        
         Vector3 dir = ball.transform.position - player.transform.position;
         dir.Normalize();
-
-        ball.GetComponent<Rigidbody>().AddForce(dir*force);
+        float dist = Vector3.Distance(ball.transform.position, player.transform.position);
+        ball.GetComponent<Rigidbody>().AddForce(dir*force/dist);
     }
 
     
