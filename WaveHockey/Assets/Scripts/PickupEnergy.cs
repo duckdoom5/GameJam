@@ -19,6 +19,8 @@ public class PickupEnergy : MonoBehaviour {
         if(playerInfo.energy<100)
         {
             playerInfo.energy += energyGain;
+            GameObject spwn = GetComponentInParent<SpawnActivate>()._gameController;
+            spwn.GetComponent<Spawn>().ResetTimer();
             Destroy(collision.gameObject);
         }
           
