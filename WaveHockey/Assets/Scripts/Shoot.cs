@@ -7,9 +7,11 @@ public class Shoot : MonoBehaviour {
     public GameObject ball;
     public GameObject player;
     public int force;
+    public int energy = 0;
     public float cooldown;
     private float counter;
     public KeyCode keycode;
+    public KeyCode specialKeyCode;
 
 	// Use this for initialization
 	void Start () {
@@ -26,6 +28,17 @@ public class Shoot : MonoBehaviour {
             Debug.Log("Pressed");
             Shooting();
             counter = cooldown;
+            
+        }
+
+        if (Input.GetKeyDown(keycode) && counter <= 0.0f && energy == 100)
+        {
+            int tempforce = force;
+            force *= 2;
+            Shooting();
+            force = tempforce;
+            counter = cooldown;
+            energy = 0;
         }
 	}
 
