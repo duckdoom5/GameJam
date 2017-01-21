@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnergyBar : MonoBehaviour {
-
-    public GameObject player;
+    
     public float barDisplay;
     public Vector2 pos = new Vector2(20, 40);
     public Vector2 size = new Vector2(60,20);
@@ -15,6 +14,7 @@ public class EnergyBar : MonoBehaviour {
     {
         GUI.BeginGroup(new Rect(pos.x, pos.y, size.x, size.y));
         GUI.Box(new Rect(0, 0, size.x, size.y),emptyTex);
+        GUI.EndGroup();
 
         GUI.BeginGroup(new Rect(0, 0, size.x * barDisplay, size.y));
         GUI.Box(new Rect(0, 0, size.x, size.y), fullTex);
@@ -24,6 +24,6 @@ public class EnergyBar : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        barDisplay = player.GetComponent<Shoot>().energy;
+        barDisplay = GetComponentInParent<Shoot>().energy;
 	}
 }
