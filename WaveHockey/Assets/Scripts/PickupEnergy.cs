@@ -19,4 +19,13 @@ public class PickupEnergy : MonoBehaviour {
         if(playerInfo.energy<100)
             playerInfo.energy += energyGain;
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "PlayArea")
+        {
+            gameObject.SetActive(false);
+            WinLose.DisplayWinner(transform.parent.gameObject.name);
+        }
+    }
 }
