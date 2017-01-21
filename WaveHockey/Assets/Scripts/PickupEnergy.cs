@@ -17,7 +17,11 @@ public class PickupEnergy : MonoBehaviour {
         if (collision.gameObject.tag != "Energy")
             return;
         if(playerInfo.energy<100)
+        {
             playerInfo.energy += energyGain;
+            Destroy(collision.gameObject);
+        }
+          
     }
 
     private void OnTriggerExit(Collider other)
